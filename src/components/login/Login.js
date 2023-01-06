@@ -20,7 +20,7 @@ const Login = ({ form, handleSubmit }) => {
     };
     const res = await postDataAPI("login/", formLogin, "1234");
     setData(res.data);
-    setCookie("access_token", res.data.access, 30);
+    setCookie("access_token", res.data.access, 5);
     window.location.reload()
     // return true
   };

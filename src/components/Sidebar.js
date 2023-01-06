@@ -18,6 +18,7 @@ import ChatMessage from "./chat/index";
 // import Analytics from "./charts/index"
 import LineAreaChart from './charts/LineAreaChart';
 import DataLabelChart from './charts/DataLabelChart';
+import Facebook from "./Facebook";
 
 
 const { Content, Footer, Sider } = Layout;
@@ -105,6 +106,10 @@ const Sidebar = () => {
             </Route>
             <Route exact path="/total-report" element={
                 <DataLabelChart />
+            }>
+            </Route>
+            <Route exact path="/facebook" element={
+                <Facebook />
             }>
             </Route>
           </Routes>

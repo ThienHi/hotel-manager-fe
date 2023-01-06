@@ -7,8 +7,8 @@ import { getCookie } from "./utils/getCookie";
 
 function App() {
   const token = getCookie("access_token")
-  // const isLoggedIn = token !== "" ? false : true
-  const isLoggedIn = false
+  const isLoggedIn = token !== "" ? false : true
+  // const isLoggedIn = false
   return isLoggedIn ? (
     <Router>
       <Login/>

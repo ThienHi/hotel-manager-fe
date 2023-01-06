@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core";
-import { Layout, Card, Input, Space } from "antd";
+import { Layout, Card, Input, Space, Button, Form } from "antd";
+import { useForm } from "antd/es/form/Form";
 
 const { Content, Footer, Header } = Layout;
-const { Search } = Input;
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -26,7 +26,10 @@ const useStyles = makeStyles((theme) => ({
     height: "600px",
   },
   inputSendMsg: {
-    width: "1000px",
+    width: "900px",
+  },
+  sendMsg: {
+    display: "flex",
   },
 }));
 
@@ -102,6 +105,15 @@ const data = [
 
 const MessageRoom = () => {
   const classes = useStyles();
+  const [form] = useForm();
+
+  const onFinish = () => {
+    const value = form.getFieldValue("mess");
+    console.log(value);
+
+    form.resetFields();
+  };
+
   return (
     <>
       <Layout>
@@ -120,8 +132,25 @@ const MessageRoom = () => {
       </div>
       <Footer>
         <Space direction="vertical">
-          <p>Send message</p>
-          <Input className={classes.inputSendMsg} />
+          {/* <p>Send message</p> */}
+          <div className={classes.sendMsg}>
+            <Form form={form} onFinish={onFinish}>
+              <Form.Item
+                name="mess"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your messenger!",
+                  },
+                ]}
+              >
+                <Input className={classes.inputSendMsg} />
+              </Form.Item>
+              <Button type="primary" htmlType="submit">
+                Send Message
+              </Button>
+            </Form>
+          </div>
         </Space>
       </Footer>
     </>
