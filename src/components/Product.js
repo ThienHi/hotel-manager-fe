@@ -56,8 +56,6 @@ const Product = () => {
   const getProduct = async () => {
     const res = await getDataAPI("product/", "asdasdasdsad");
     setData(res.results);
-    console.log(res);
-    console.log(" 8888888888888888888888888888888888888 ");
   };
 
   useEffect(() => {

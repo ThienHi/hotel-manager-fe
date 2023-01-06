@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from "react";
 import { Col, Divider, Row, Button } from "antd";
 import AddIcon from "@mui/icons-material/Add";
-import CardHotel from "./cardHotel";
+import CardFacebook from "./cardFacebook";
 import { getDataAPI, postDataAPI } from "../call_api";
 import { useLocation } from "react-router-dom";
 import { getCookie } from "../utils/getCookie";
@@ -9,6 +9,7 @@ import { getCookie } from "../utils/getCookie";
 const Facebook = () => {
   const token = getCookie("access_token");
   const [callApiListPage, setCallApiListPage] = useState(false);
+  const [page, setPage] = useState();
   const location = useLocation();
 
   // Call API
@@ -19,17 +20,18 @@ const Facebook = () => {
       redirect_url: "https://localhost:3000/facebook",
       code: code,
     };
-    if (callApiListPage === false) {
-      await postDataAPI("facebook/list-page/", dataPost, token);
-      setCallApiListPage(true);
-    }else {
-      console.log(" Ngu vcc!!!!!!!!!! ");
-    }
+    await postDataAPI("facebook/list-page/", dataPost, token);
+    setCallApiListPage(true);
+  };
+
+  const getPage = async () => {
+    const res = await getDataAPI("facebook/", token);
+    setPage(res.data.data);
   };
 
   useEffect(() => {
-    // getCard();
-    callAPIListPage();
+    getPage();
+    // callAPIListPage();
   }, []);
 
   return (
@@ -65,15 +67,15 @@ const Facebook = () => {
           </Button>
         </div>
       </div>
-      {/* <Row align="middle">
-        {callApiListPage?.map((value, _) => {
+      <Row align="middle">
+        {page?.map((value, _) => {
           return (
             <Col span={7} style={{ marginBottom: "30px" }}>
-              <CardHotel passValue={value} />
+              <CardFacebook passValue={value} />
             </Col>
           );
         })}
-      </Row> */}
+      </Row>
     </>
   );
 };

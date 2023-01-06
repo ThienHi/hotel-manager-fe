@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core";
 import { Layout, Card, Input, Space, Button, Form } from "antd";
 import { useForm } from "antd/es/form/Form";
+import { getDataAPI, postDataAPI } from "../../call_api";
+import { getCookie } from "../../utils/getCookie";
+import { useAtom } from "jotai";
+import { DataAtom, RecipientIdAtom, RoomIdAtom } from "./store";
 
 const { Content, Footer, Header } = Layout;
 
@@ -47,7 +51,7 @@ const ChatMessage = (props) => {
           <Card
             className={values.is_sender ? classes.msgRight : classes.msgLeft}
           >
-            {values.message}
+            {values.text}
           </Card>
         </Content>
       </div>
@@ -55,73 +59,35 @@ const ChatMessage = (props) => {
   );
 };
 
-const data = [
-  {
-    id: 1,
-    is_sender: true,
-    message: "Hi guy!!!",
-  },
-  {
-    id: 2,
-    is_sender: true,
-    message: "Hello You",
-  },
-  {
-    id: 3,
-    is_sender: false,
-    message: "My name ThienHi 'i' short!!",
-  },
-  {
-    id: 4,
-    is_sender: true,
-    message: "Oke ThienHi",
-  },
-  {
-    id: 5,
-    is_sender: false,
-    message: "Oke ThienHi",
-  },
-  {
-    id: 6,
-    is_sender: true,
-    message: "Oke ThienHi",
-  },
-  {
-    id: 4,
-    is_sender: true,
-    message: "Oke ThienHi",
-  },
-  {
-    id: 5,
-    is_sender: false,
-    message: "Oke ThienHi",
-  },
-  {
-    id: 6,
-    is_sender: true,
-    message: "Oke ThienHi",
-  },
-];
-
 const MessageRoom = () => {
+  const token = getCookie("access_token");
   const classes = useStyles();
   const [form] = useForm();
-
-  const onFinish = () => {
-    const value = form.getFieldValue("mess");
-    console.log(value);
-
+  const [roomIdAtom] = useAtom(RoomIdAtom)
+  const [recipientIdAtom] = useAtom(RecipientIdAtom)
+  const [dataAtom] = useAtom(DataAtom)
+  const message = dataAtom?.message
+  console.log(roomIdAtom, recipientIdAtom, " ******************************************8 ");
+  const onFinish = async () => {
+    const msgText = form.getFieldValue("mess");
+    const data = {
+      'recipient_id': recipientIdAtom,
+      'message_text': msgText,
+      'room_id': roomIdAtom,
+      'is_text': 'true'
+    }
+    const res = await postDataAPI("send-msg/send/", data, token);
     form.resetFields();
   };
 
   return (
     <>
       <Layout>
-        <Header className={classes.header}>Header</Header>
+        <Header className={classes.header}>Nhắn Tin</Header>
       </Layout>
       <div className={classes.tagMsg}>
         <Content>
-          {data?.map((value, _) => {
+          {message?.map((value, _) => {
             return (
               <Card style={{ display: "block" }}>
                 <ChatMessage className={classes.chatMessage} data={value} />
@@ -132,7 +98,6 @@ const MessageRoom = () => {
       </div>
       <Footer>
         <Space direction="vertical">
-          {/* <p>Send message</p> */}
           <div className={classes.sendMsg}>
             <Form form={form} onFinish={onFinish}>
               <Form.Item

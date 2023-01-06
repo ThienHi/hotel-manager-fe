@@ -19,6 +19,7 @@ const CardHotel = (props) => {
   //   console.log(id);
   //   editHotel(id)
   // }, [id]);
+
   const value = props.passValue;
   var myArrayImages = [
     "https://thumbs.dreamstime.com/z/beautiful-exterior-home-pictures-new-home-design-images-modern-best-house-design-images-best-house-images-images-latest-172194515.jpg",
