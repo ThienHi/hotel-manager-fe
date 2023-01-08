@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Space, Table, Tag, Input, Col, Row, Button, Divider } from "antd";
 import { SearchOutlined } from '@ant-design/icons';
 import { getDataAPI } from "../call_api";
+import { getCookie } from "../utils/getCookie";
 
 const columns = [
   {
@@ -11,51 +12,39 @@ const columns = [
     render: (text) => <a>{text}</a>,
   },
   {
-    title: "Age",
-    dataIndex: "age",
-    key: "age",
+    title: "Amount",
+    dataIndex: "amount",
+    key: "amount",
   },
   {
-    title: "Address",
-    dataIndex: "address",
-    key: "address",
+    title: "Price",
+    dataIndex: "price",
+    key: "price",
   },
   {
-    title: "Tags",
-    key: "tags",
-    dataIndex: "tags",
-    render: (_, { tags }) => (
-      <>
-        {tags.map((tag) => {
-          let color = tag.length > 5 ? "geekblue" : "green";
-          if (tag === "loser") {
-            color = "volcano";
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
+    title: "Detail",
+    key: "detail",
+    dataIndex: "detail"
   },
   {
     title: "Action",
     key: "action",
     render: (_, record) => (
       <Space size="middle">
-        <a>Invite</a>
+        <a>Edit</a>
         <a>Delete</a>
       </Space>
     ),
   },
 ];
+
 const Product = () => {
+  const token = getCookie("access_token");
   const [data, setData] = useState();
   const getProduct = async () => {
-    const res = await getDataAPI("product/", "asdasdasdsad");
-    setData(res.results);
+    const res = await getDataAPI("product/", token);
+    setData(res.data.results);
+    console.log(res, " ***************************************** ");
   };
 
   useEffect(() => {

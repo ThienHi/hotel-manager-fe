@@ -10,8 +10,9 @@ const Room = () => {
   // Call API
   const [data, setData] = useState();
   const getCard = async () => {
-    const res = await getDataAPI("room/", token);
+    const res = await getDataAPI("room-hotel/", token);
     setData(res.data.results);
+    console.log(res);
   };
 
   useEffect(() => {
@@ -20,7 +21,7 @@ const Room = () => {
 
   return (
     <>
-      <Divider orientation="left">Hotel</Divider>
+      <Divider orientation="left">Room</Divider>
       <Row align="middle">
         {data?.map((value, _) => {
           return (

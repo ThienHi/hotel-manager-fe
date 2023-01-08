@@ -13,6 +13,7 @@ import Head from "./Header"
 import Profile from "./Profile";
 import Hotel from "./Hotel";
 import User from "./User";
+import UserApp from "./UserApp";
 import Room from "./Room";
 import ChatMessage from "./chat/index";
 // import Analytics from "./charts/index"
@@ -38,14 +39,15 @@ const items = [
   ]  ),
   getItem(<Link to="hotel">Hotel</Link>, "2", <DesktopOutlined />),
   getItem(<Link to="room">Room</Link>, "sub1", <UserOutlined />),
-  getItem(<Link to="chat">Message</Link>, "3", <FileOutlined />),
   getItem(<Link to="user">User</Link>, "4", <FileOutlined />),
   getItem("Order", "sub2", <TeamOutlined />, [
     getItem(<Link to="order">Order</Link>, "6"),
     getItem(<Link to="order-details">Order Details</Link>, "8"),
   ]),
-  getItem(<Link to="product">Product</Link>, "9", <FileOutlined />),
+  getItem(<Link to="product">Product</Link>, "3", <FileOutlined />),
+  getItem(<Link to="chat">Message</Link>, "9", <FileOutlined />),
   getItem(<Link to="facebook">Facebook</Link>, "10", <FileOutlined />),
+  getItem(<Link to="social-profile">Social Profile</Link>, "11", <FileOutlined />),
 ];
 
 const Sidebar = () => {
@@ -90,6 +92,10 @@ const Sidebar = () => {
             </Route>
             <Route exact path="/user" element={
                 <User />
+            }>
+            </Route>
+            <Route exact path="/social-profile" element={
+                <UserApp />
             }>
             </Route>
             <Route exact path="/chat" element={

@@ -23,14 +23,14 @@ const CardRoom = (props) => {
         }}
         cover={
           <img
-            alt="hotel"
-            src="https://thumbs.dreamstime.com/b/beautiful-landscape-dry-tree-branch-sun-flowers-field-against-colorful-evening-dusky-sky-use-as-natural-background-backdrop-48319427.jpg"
+            alt={value?.name}
+            src={rand}
           />
         }
-        actions={[
-          <EditOutlined key="edit" />,
-          <DeleteOutlined key="delete" />
-        ]}
+        // actions={[
+        //   <EditOutlined key="edit" />,
+        //   <DeleteOutlined key="delete" />
+        // ]}
       >
         <Meta
           avatar={<Avatar src={rand} />}

@@ -4,6 +4,7 @@ import AddIcon from "@mui/icons-material/Add";
 import CardHotel from "./cardHotel";
 import { getDataAPI } from "../call_api";
 import AddHotel from "./forms/addHotel";
+import { getCookie } from "../utils/getCookie";
 
 const Hotel = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,11 +15,11 @@ const Hotel = () => {
     setIsModalOpen(false);
   };
 
-
+  const token = getCookie("access_token")
   // Call API
   const [data, setData] = useState();
   const getCard = async () => {
-    const res = await getDataAPI("hotel/", "asdasdasdsad");
+    const res = await getDataAPI("hotel/", token);
     setData(res.data.results);
   };
 

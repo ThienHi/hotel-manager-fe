@@ -11,17 +11,19 @@ const { Content, Footer, Header } = Layout;
 
 const useStyles = makeStyles((theme) => ({
   header: {
-    backgroundColor: "yellow !important",
+    backgroundColor: "aquamarine !important",
   },
   chatMessage: {
     margin: "50px",
     width: "95%",
   },
   msgRight: {
+    background: "aquamarine !important",
     float: "right",
     width: "400px",
   },
   msgLeft: {
+    background: "antiquewhite !important",
     float: "left",
     width: "400px",
   },
